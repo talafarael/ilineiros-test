@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "./globals.scss";
 import { Roboto } from 'next/font/google'
+import ResponsiveDrawer from "@/components/layout/nav/Aside";
+
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
@@ -23,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        {children}
+        <ResponsiveDrawer>
+          {children}
+        </ResponsiveDrawer>
       </body>
     </html>
   );
