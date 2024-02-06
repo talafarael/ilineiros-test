@@ -1,17 +1,15 @@
 import * as React from 'react';
 import Divider from '@mui/material/Divider';
-
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import AssistantIcon from '@mui/icons-material/Assistant';
+import HomeIcon from '@mui/icons-material/Home';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-
 import Toolbar from '@mui/material/Toolbar';
-import Link from "next/link";
-
 
 const SideBar = () => {
     return (
@@ -19,36 +17,39 @@ const SideBar = () => {
             <Toolbar/>
             <Divider/>
             <List>
-                <Link href={`/`}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={'qwe'}/>
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link href={`/`}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={'qwe'}/>
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link href={`/`}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={'qwe'}/>
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
+
+                <ListItem disablePadding>
+                    <ListItemButton href='/'>
+                        <ListItemIcon>
+                            <HomeIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={'Home'}/>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton href='/bet'>
+                        <ListItemIcon>
+                            <CurrencyBitcoinIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={'Place a bet'}/>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton href='/online-chat'>
+                        <ListItemIcon>
+                            <QuestionAnswerIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={'Online chat'}/>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton href='/information'>
+                        <ListItemIcon>
+                            <AssistantIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={'Information'}/>
+                    </ListItemButton>
+                </ListItem>
             </List>
         </>
     );

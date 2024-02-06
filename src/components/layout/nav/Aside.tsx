@@ -3,38 +3,28 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import SideBar from "@/components/layout/nav/side-bar/SideBar";
 import MenuIcon from '@mui/icons-material/Menu';
-
-const drawerWidth = 240;
+import {drawerWidth} from "@/components/layout/nav";
+import useDrawerState from "@/hooks/use-drawer-state/useDrawerState";
+import Drawer from "@mui/material/Drawer";
+import SideBar from "@/components/layout/nav/side-bar/SideBar";
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import useOpenUserMenu from "@/hooks/use-open-user-menu/useOpenUserMenu";
+import Button from '@mui/material/Button';
 
 interface ResponsiveDrawerProps {
     children: React.ReactNode;
 }
 
 export default function ResponsiveDrawer({children}: ResponsiveDrawerProps) {
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
-
-    const handleDrawerClose = () => {
-        setIsClosing(true);
-        setMobileOpen(false);
-    };
-
-    const handleDrawerTransitionEnd = () => {
-        setIsClosing(false);
-    };
-
-    const handleDrawerToggle = () => {
-        if (!isClosing) {
-            setMobileOpen(!mobileOpen);
-        }
-    };
+    const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, handleDrawerToggle } = useDrawerState();
+    const { handleOpenUserMenu, anchorElUser , handleCloseUserMenu } = useOpenUserMenu()
 
     return (
         <Box sx={{display: 'flex'}}>
@@ -45,38 +35,72 @@ export default function ResponsiveDrawer({children}: ResponsiveDrawerProps) {
                     ml: {sm: `${drawerWidth}px`},
                 }}>
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{mr: 2, display: {sm: 'none'}}}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Responsive drawer
-                    </Typography>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: {
+                            md: 'flex-end',
+                            sm: 'space-between'
+                        },
+                        width: '100%'
+                    }}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            sx={{mr: 2, display: {sm: 'none'}}}>
+                            <MenuIcon/>
+                        </IconButton>
+                        <Box sx={{flexGrow: 0}}>
+                            <Button variant="contained" color='inherit' sx={{color: 'black'}} href="/login">Login</Button>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                    <Avatar alt="Monkey King" src="/avatar/avatar.jpg"/>
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{mt: '45px'}}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}>
+
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">Account</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">Log out</Typography>
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    </Box>
                 </Toolbar>
+
             </AppBar>
             <Box
                 component="nav"
-                sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
-                aria-label="mailbox folders"
-            >
+                sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}>
                 <Drawer
                     variant="temporary"
                     open={mobileOpen}
                     onTransitionEnd={handleDrawerTransitionEnd}
                     onClose={handleDrawerClose}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true,
                     }}
                     sx={{
                         display: {xs: 'block', sm: 'none'},
                         '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
-                    }}
-                >
+                    }}>
                     <SideBar/>
                 </Drawer>
                 <Drawer
@@ -85,15 +109,13 @@ export default function ResponsiveDrawer({children}: ResponsiveDrawerProps) {
                         display: {xs: 'none', sm: 'block'},
                         '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
-                    open
-                >
+                    open>
                     <SideBar/>
                 </Drawer>
             </Box>
             <Box
                 component="main"
-                sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
-            >
+                sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}>
                 <Toolbar/>
                 {children}
             </Box>
