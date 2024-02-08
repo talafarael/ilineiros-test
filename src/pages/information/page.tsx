@@ -3,7 +3,7 @@ import React from 'react';
 const InformationPage = () => {
     return (
         <div>
-            information
+            Information Page
         </div>
     );
 };

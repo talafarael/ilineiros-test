@@ -1,11 +1,11 @@
 import React from 'react';
 
-const BetPage = () => {
+const HomePage = () => {
     return (
         <div>
-            bet
+           home page
         </div>
     );
 };
 
-export default BetPage;
+export default HomePage;

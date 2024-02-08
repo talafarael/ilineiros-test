@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,16 +5,17 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
-import {drawerWidth} from "@/components/layout/nav";
-import useDrawerState from "@/hooks/use-drawer-state/useDrawerState";
+import {drawerWidth} from './index';
 import Drawer from "@mui/material/Drawer";
-import SideBar from "@/components/layout/nav/side-bar/SideBar";
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import useOpenUserMenu from "@/hooks/use-open-user-menu/useOpenUserMenu";
 import Button from '@mui/material/Button';
+import SideBar from './sideBar/SideBar'
+import useOpenUserMenu from "../../../hooks/useOpenUserMenu/useOpenUserMenu";
+import useDrawerState from "../../../hooks/useDrawerState/useDrawerState";
+
 
 interface ResponsiveDrawerProps {
     children: React.ReactNode;
@@ -52,7 +51,13 @@ export default function ResponsiveDrawer({children}: ResponsiveDrawerProps) {
                             <MenuIcon/>
                         </IconButton>
                         <Box sx={{flexGrow: 0}}>
-                            <Button variant="contained" color='inherit' sx={{color: 'black'}} href="/login">Login</Button>
+                            <Button
+                                variant="contained"
+                                color='inherit'
+                                sx={{color: 'black'}}
+                                href="/auth-page">
+                                Login
+                            </Button>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                     <Avatar alt="Monkey King" src="/avatar/avatar.jpg"/>

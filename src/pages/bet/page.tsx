@@ -1,11 +1,11 @@
 import React from 'react';
 
-const OnlineChatPage = () => {
+const BetPage = () => {
     return (
         <div>
-            chat
+            bet page
         </div>
     );
 };
 
-export default OnlineChatPage;
+export default BetPage;
